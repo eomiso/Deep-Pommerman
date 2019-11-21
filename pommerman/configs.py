@@ -128,10 +128,10 @@ def simple_rand_team_env():
     env_kwargs = {
         'game_type': game_type,
         'board_size': 11,
-        'num_rigid': 0,
-        'num_wood': 0,
+        'num_rigid': 16,
+        'num_wood': 16,
         'num_items': 0,
-        'max_steps': 200,
+        'max_steps': 800,
         'render_fps': constants.RENDER_FPS,
         'rand_agent_pos': True,
         'env': env_entry_point,

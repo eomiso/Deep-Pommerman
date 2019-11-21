@@ -1,10 +1,10 @@
-n_workers:5
-start_iteration:0
-max_loop_step:100
+n_workers:10
+start_iteration:100
+max_loop_step:1
 game_dir:output/GAMES
 nn_model_dir:output/NN_MODELS
 env_id:SimpleRandomTeam-v0
 opponent:static
-n_games_per_worker:10
-buffer_size:100
-n_epochs:1
+n_games_per_worker:20
+buffer_size:200
+n_epochs:4
