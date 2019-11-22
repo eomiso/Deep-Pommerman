@@ -24,9 +24,11 @@ https://github.com/BorealisAI/pommerman-baseline
    source venv/bin/activate 
    ```
    
-1. Install dependencies
+1. Install dependencies (apt installs are for saving playouts to mp4)
 
    ```bash
+   apt-get install python-opengl
+   apt install xvfb
    pip3 install -r requirements.txt
    pip3 install -r requirements_extra.txt
    ```

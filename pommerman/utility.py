@@ -12,6 +12,19 @@ import numpy as np
 
 from . import constants
 
+import gym
+from gym import logger as gymlogger
+from gym.wrappers import Monitor
+import matplotlib
+import matplotlib.pyplot as plt
+import math
+import glob
+import io
+import base64
+from IPython.display import HTML
+
+from IPython import display as ipythondisplay
+
 
 class PommermanJSONEncoder(json.JSONEncoder):
     '''A helper class to encode state data into a json object'''
@@ -421,3 +434,30 @@ def join_json_state(record_json_dir, agents, finished_at, config, info):
         for name in files:
             if "game_state" not in name:
                 os.remove(os.path.join(record_json_dir, name))
+
+
+def activate_virtual_display():
+    '''needed if you don't have a screen displayed on your recording  instance. Helper for show_video'''
+    from pyvirtualdisplay import Display
+    display = Display(visible=0, size=(800, 600))
+    display.start()
+
+def show_video():
+  '''displays recorded video in jupyter notebook'''
+  mp4list = glob.glob('video/*.mp4')
+  if len(mp4list) > 0:
+    mp4 = mp4list[0]
+    video = io.open(mp4, 'r+b').read()
+    encoded = base64.b64encode(video)
+    ipythondisplay.display(HTML(data='''<video alt="test" autoplay 
+                loop controls style="height: 400px;">
+                <source src="data:video/mp4;base64,{0}" type="video/mp4" />
+             </video>'''.format(encoded.decode('ascii'))))
+  else: 
+    print("Could not find video")
+    
+def wrap_env(env):
+  '''wraps an environment with a monitor for recording video of playout. Stopped by calling env.close() 
+  and restarted by calling env._start().'''
+  env = Monitor(env, './video', force=True)
+  return env
