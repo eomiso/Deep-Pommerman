@@ -1,7 +1,5 @@
-"""The baseline Pommerman environment.
+"""The modified baseline (v0) Pommerman environment, compatible with openai stable-baseline
 
-This evironment acts as game manager for Pommerman. Further environments,
-such as in v1.py, will inherit from this.
 """
 import json
 import os
@@ -17,9 +15,10 @@ from .. import constants
 from .. import forward_model
 from .. import graphics
 from .. import utility
+from . import v0
 
 
-class Pomme(gym.Env):
+class Pomme(v0.Pomme):
     '''The base pommerman env.'''
     metadata = {
         'render.modes': ['human', 'rgb_array', 'rgb_pixel'],
@@ -87,10 +86,8 @@ class Pomme(gym.Env):
         - enemies (three of {AgentDummy.value, Agent3.value}).
         """
         bss = self._board_size**2
-        min_obs = [0] * 3 * bss + [0] * 5 + [constants.Item.AgentDummy.value
-                                            ] * 4
-        max_obs = [len(constants.Item)] * bss + [self._board_size
-                                                ] * bss + [25] * bss
+        min_obs = [0] * 3 * bss + [0] * 5 + [constants.Item.AgentDummy.value] * 4
+        max_obs = [len(constants.Item)] * bss + [self._board_size] * bss + [25] * bss
         max_obs += [self._board_size] * 2 + [self._num_items] * 2 + [1]
         max_obs += [constants.Item.Agent3.value] * 4
         self.observation_space = spaces.Box(
@@ -132,7 +129,8 @@ class Pomme(gym.Env):
         self._items = utility.make_items(self._board, self._num_items)
 
     def act(self, obs):
-        agents = [agent for agent in self._agents if agent.agent_id != self.training_agent]
+        agents = [agent for agent in self._agents \
+                  if agent.agent_id != self.training_agent]
         return self.model.act(agents, obs, self.action_space)
 
     def get_observations(self):
@@ -142,6 +140,7 @@ class Pomme(gym.Env):
             self._game_type, self._env)
         for obs in self.observations:
             obs['step_count'] = self._step_count
+
         return self.observations
 
     def _get_rewards(self):
