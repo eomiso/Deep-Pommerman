@@ -47,13 +47,14 @@ def main():
     agent_list[team_id]=nn_agent2
     # Make the environment using the agent list
     env = pommerman.make(env_id, agent_list)
+    env = pommerman.utility.wrap_env(env)
 
     # Run the episodes just like OpenAI Gym
-    for i_episode in range(1):
+    for i_episode in range(2):
         state = env.reset()
         done = False
         while not done:
-            env.render()
+            #env.render()
             actions = env.act(state)
             #a=nn_agent.act(state[idx], env.action_space, 'softmax') if nn_agent.is_alive else 0
             #actions[idx]=a

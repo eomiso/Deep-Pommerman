@@ -27,8 +27,8 @@ https://github.com/BorealisAI/pommerman-baseline
 1. Install dependencies (apt installs are for saving playouts to mp4)
 
    ```bash
-   apt-get install python-opengl
-   apt install xvfb
+   sudo apt-get install python-opengl
+   sudo apt install xvfb
    pip3 install -r requirements.txt
    pip3 install -r requirements_extra.txt
    ```
