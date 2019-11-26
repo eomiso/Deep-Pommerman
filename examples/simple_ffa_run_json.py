@@ -36,7 +36,7 @@ def main():
     # Run the episodes just like OpenAI Gym
     for i_episode in range(20):
         if i_episode % json_check == 0:
-            fight.run(config, deep_agents, record_json_dir = "test_json" + str(i_episode)) # GIVES ME ERROR DURING env.save_json for anything except FFA
+            fight.run(config, deep_agents, record_json_dir = "test_json/test_json" + str(i_episode)) # GIVES ME ERROR DURING env.save_json for anything except FFA
         else:
             state = env.reset()
             done = False
