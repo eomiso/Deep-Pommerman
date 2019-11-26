@@ -182,6 +182,26 @@ def ffa_v3_fast_env():
     agent = characters.Bomber
     return locals()
 
+def ffa_v4_fast_env():
+    """Start up a FFA config with the default settings."""
+    env = envs.v4.Pomme
+    game_type = constants.GameType.FFA
+    env_entry_point = 'pommerman.envs.v4:Pomme'
+    env_id = 'PommeFFAFast-v4'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': constants.BOARD_SIZE,
+        'free_board_size': constants.FREE_BOARD_SIZE,
+        'num_rigid': constants.NUM_RIGID,
+        'num_wood': constants.NUM_WOOD,
+        'num_items': constants.NUM_ITEMS,
+        'max_steps': constants.MAX_STEPS,
+        'render_fps': 1000,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
+
 def team_v0_simple_env():
     """Start up a FFA config with the default settings."""
     env = envs.v0.Pomme

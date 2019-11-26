@@ -152,6 +152,91 @@ def make_board(size, num_rigid=0, num_wood=0, num_agents=4):
 
     return board
 
+def make_board_small(size=11, freesize=4, num_rigid=0, num_wood=0, num_agents=2):
+    """Make a standard 11x11 board, filled in with rigid walls to define a smaller central free space for ease of training 
+
+    The numbers refer to the Item enum in constants. This is:
+     0 - passage
+     1 - rigid wall
+     2 - wood wall
+     3 - bomb
+     4 - flames
+     5 - fog
+     6 - extra bomb item
+     7 - extra firepower item
+     8 - kick
+     9 - skull
+     10 - 13: agents
+
+    Args:
+      size: The dimension of the board, i.e. it's sizeXsize.
+      freesize: The dimensions of the central region open for players
+      (unused) num_rigid: The number of rigid walls on the board. This should be even.
+      (unused) num_wood: Similar to above but for wood walls.
+
+    Returns:
+      board: The resulting random board.
+    """
+
+    # def lay_wall(value, num_left, coordinates, board):
+    #     '''Lays all of the walls on a board'''
+    #     x, y = random.sample(coordinates, 1)[0]
+    #     coordinates.remove((x, y))
+    #     coordinates.remove((y, x))
+    #     board[x, y] = value
+    #     board[y, x] = value
+    #     num_left -= 2
+    #     return num_left
+
+    def make(size, freesize, num_rigid, num_wood, num_agents):
+        '''Constructs a game/board'''
+        #check size inputs correct
+        assert freesize <= size
+        assert freesize >= 2
+
+        # Initialize everything as a passage.
+        board = np.ones((size,
+                         size)).astype(np.uint8) * constants.Item.Passage.value
+
+        # Gather all the possible coordinates to use for walls.
+        coordinates = set([
+            (x, y) for x, y in \
+            itertools.product(range(size), range(size)) \
+            if x != y])
+
+        #get 4 center coordinates clockwise from NW
+        center1 = (int(np.ceil(size/2)-1), int(np.ceil(size/2)-1))
+        center2 = (int(np.ceil(size/2)), int(np.ceil(size/2)-1))
+        center3 = (int(np.ceil(size/2)), int(np.ceil(size/2)))
+        center4 = (int(np.ceil(size/2)-1), int(np.ceil(size/2)))
+
+        #place agents in center
+        if num_agents == 2:
+            board[center1] = constants.Item.Agent0.value
+            board[center3] = constants.Item.Agent1.value
+        elif num_agents == 4:
+            board[center1] = constants.Item.Agent0.value
+            board[center2] = constants.Item.Agent1.value
+            board[center3] = constants.Item.Agent2.value
+            board[center4] = constants.Item.Agent3.value
+
+        free_leftbound = center1[0] - (np.ceil(freesize / 2) - 1)
+        free_rightbound = center1[0] + (np.ceil(freesize / 2))  
+        free_topbound = center1[1] - (np.ceil(freesize / 2) - 1)
+        free_bottombound = center1[1] + (np.ceil(freesize / 2))
+
+        #wall up the arena surrounding the free space
+        for i in range(size): #scan left to right
+            for j in range(size): #scan top to bottom
+                if i < free_leftbound or i > free_rightbound:
+                    board[i,j] = constants.Item.Rigid.value
+                elif j < free_topbound or j > free_bottombound:
+                    board[i,j] = constants.Item.Rigid.value
+
+        return board
+
+    board = make(size, freesize, num_rigid, num_wood, num_agents)
+    return board
 
 def make_items(board, num_items):
     '''Lays all of the items on the board'''
