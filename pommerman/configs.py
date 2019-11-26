@@ -1,5 +1,9 @@
 """Configs module: Add game configs here.
 
+Due to the way the game is setup:
+Team board size must be at least 8x8
+1v1 board size must be at least 6x6 
+
 Besides game configs, also includes helpers for handling configs, e.g. saving
 and loading them.
 
@@ -36,6 +40,244 @@ def one_vs_one_env():
     agent = characters.Bomber
     return locals()
 
+def simple_env():
+    """Start up a super simple OneVsOne config."""
+    env = envs.v0.Pomme
+    game_type = constants.GameType.OneVsOne
+    env_entry_point = 'pommerman.envs.v0:Pomme'
+    env_id = 'Simple-v0'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': constants.BOARD_SIZE_SIMPLE,
+        'num_rigid': constants.NUM_RIGID_SIMPLE,
+        'num_wood': constants.NUM_WOOD_SIMPLE,
+        'num_items': constants.NUM_ITEMS_SIMPLE,
+        'max_steps': constants.MAX_STEPS_SIMPLE,
+        'render_fps': constants.RENDER_FPS,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
+
+def lesson1_env():
+    """Lesson 1-blank training config."""
+    env = envs.v0.Pomme
+    game_type = constants.GameType.Team
+    env_entry_point = 'pommerman.envs.v0:Pomme'
+    env_id = 'Lesson1-v0'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': 11,
+        'num_rigid': 0,
+        'num_wood': 0,
+        'num_items': 0,
+        'max_steps': 200,
+        'render_fps': constants.RENDER_FPS,
+        'rand_agent_pos': True,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
+
+def lesson2_env():
+    """Lesson 2-box training config."""
+    env = envs.v0.Pomme
+    game_type = constants.GameType.Team
+    env_entry_point = 'pommerman.envs.v0:Pomme'
+    env_id = 'Lesson2-v0'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': 11,
+        'num_rigid': 0,
+        'num_wood': 4,
+        'num_items': 0,
+        'max_steps': 200,
+        'render_fps': constants.RENDER_FPS,
+        'rand_agent_pos': True,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
+
+def lesson2b_env():
+    """Lesson 2b-box training config."""
+    env = envs.v0.Pomme
+    game_type = constants.GameType.Team
+    env_entry_point = 'pommerman.envs.v0:Pomme'
+    env_id = 'Lesson2b-v0'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': 11,
+        'num_rigid': 0,
+        'num_wood': 8,
+        'num_items': 0,
+        'max_steps': 200,
+        'render_fps': constants.RENDER_FPS,
+        'rand_agent_pos': True,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
+
+def lesson2c_env():
+    """Lesson 2c-box training config."""
+    env = envs.v0.Pomme
+    game_type = constants.GameType.Team
+    env_entry_point = 'pommerman.envs.v0:Pomme'
+    env_id = 'Lesson2c-v0'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': 11,
+        'num_rigid': 0,
+        'num_wood': 16,
+        'num_items': 0,
+        'max_steps': 300, #increasing timesteps to reduce reward sparsity per more challenging game
+        'render_fps': constants.RENDER_FPS,
+        'rand_agent_pos': True,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
+
+def lesson2d_env():
+    """Lesson 2d-box training config."""
+    env = envs.v0.Pomme
+    game_type = constants.GameType.Team
+    env_entry_point = 'pommerman.envs.v0:Pomme'
+    env_id = 'Lesson2d-v0'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': 11,
+        'num_rigid': 0,
+        'num_wood': constants.NUM_WOOD,
+        'num_items': 0,
+        'max_steps': 300,
+        'render_fps': constants.RENDER_FPS,
+        'rand_agent_pos': True,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
+
+def lesson2e_env():
+    """Lesson 2e-box training config."""
+    env = envs.v0.Pomme
+    game_type = constants.GameType.Team
+    env_entry_point = 'pommerman.envs.v0:Pomme'
+    env_id = 'Lesson2e-v0'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': 11,
+        'num_rigid': 0,
+        'num_wood': 72,
+        'num_items': 0,
+        'max_steps': 300,
+        'render_fps': constants.RENDER_FPS,
+        'rand_agent_pos': True,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
+
+def lesson3_env():
+    """Lesson 3-rigid training config."""
+    env = envs.v0.Pomme
+    game_type = constants.GameType.Team
+    env_entry_point = 'pommerman.envs.v0:Pomme'
+    env_id = 'Lesson3-v0'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': 11,
+        'num_rigid': 4,
+        'num_wood': constants.NUM_WOOD,
+        'num_items': 0,
+        'max_steps': 300,
+        'render_fps': constants.RENDER_FPS,
+        'rand_agent_pos': True,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
+
+def lesson3b_env():
+    """Lesson 3b-rigid training config."""
+    env = envs.v0.Pomme
+    game_type = constants.GameType.Team
+    env_entry_point = 'pommerman.envs.v0:Pomme'
+    env_id = 'Lesson3b-v0'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': 11,
+        'num_rigid': 8,
+        'num_wood': constants.NUM_WOOD,
+        'num_items': 0,
+        'max_steps': 300,
+        'render_fps': constants.RENDER_FPS,
+        'rand_agent_pos': True,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
+
+def lesson3c_env():
+    """Lesson 3c-rigid training config."""
+    env = envs.v0.Pomme
+    game_type = constants.GameType.Team
+    env_entry_point = 'pommerman.envs.v0:Pomme'
+    env_id = 'Lesson3c-v0'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': 11,
+        'num_rigid': 16,
+        'num_wood': constants.NUM_WOOD,
+        'num_items': 0,
+        'max_steps': 400, #increasing timesteps due to increasingly difficult environment
+        'render_fps': constants.RENDER_FPS,
+        'rand_agent_pos': True,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
+
+def lesson3d_env():
+    """Lesson 3d-rigid training config. Also used for lessons 4-7."""
+    env = envs.v0.Pomme
+    game_type = constants.GameType.Team
+    env_entry_point = 'pommerman.envs.v0:Pomme'
+    env_id = 'Lesson3d-v0'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': 11,
+        'num_rigid': constants.NUM_RIGID,
+        'num_wood': constants.NUM_WOOD,
+        'num_items': 0,
+        'max_steps': 400,
+        'render_fps': constants.RENDER_FPS,
+        'rand_agent_pos': True,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
+
+def advanced_lesson_env():
+    """Lesson 4+ training environment. Full number of timesteps"""
+    env = envs.v0.Pomme
+    game_type = constants.GameType.Team
+    env_entry_point = 'pommerman.envs.v0:Pomme'
+    env_id = 'AdvancedLesson-v0'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': 11,
+        'num_rigid': constants.NUM_RIGID,
+        'num_wood': constants.NUM_WOOD,
+        'num_items': 0,
+        'max_steps': constants.MAX_STEPS,
+        'render_fps': constants.RENDER_FPS,
+        'rand_agent_pos': True,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
 
 def ffa_competition_env():
     """Start up a FFA config with the competition settings."""
@@ -76,6 +318,45 @@ def ffa_competition_fast_env():
     agent = characters.Bomber
     return locals()
 
+
+def simple_team_env():
+    """Start up a super simple 2v2 config."""
+    env = envs.v0.Pomme
+    game_type = constants.GameType.Team
+    env_entry_point = 'pommerman.envs.v0:Pomme'
+    env_id = 'SimpleTeam-v0'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': 11,
+        'num_rigid': 4,
+        'num_wood': 4,
+        'num_items': 4,
+        'max_steps': 200,
+        'render_fps': constants.RENDER_FPS,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
+
+def simple_rand_team_env():
+    """Start up a super simple 2v2 config with random agent start positions."""
+    env = envs.v0.Pomme
+    game_type = constants.GameType.Team
+    env_entry_point = 'pommerman.envs.v0:Pomme'
+    env_id = 'SimpleRandomTeam-v0'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': 11,
+        'num_rigid': 0,
+        'num_wood': 0,
+        'num_items': 0,
+        'max_steps': 200,
+        'render_fps': constants.RENDER_FPS,
+        'rand_agent_pos': True,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
 
 def team_competition_env():
     """Start up a Team config with the competition settings."""
