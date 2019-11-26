@@ -31,6 +31,7 @@ https://github.com/BorealisAI/pommerman-baseline
    pip3 install -r requirements_extra.txt
    ```
    
+1. Install stable baselines dependencies (non-pip requirements): https://github.com/hill-a/stable-baselines#installation
 1. Install code (must be done everytime pommerman libraries are changed):
    
    ```bash
