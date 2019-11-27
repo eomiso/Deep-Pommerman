@@ -54,6 +54,7 @@ def simple_env():
         'num_items': constants.NUM_ITEMS_SIMPLE,
         'max_steps': constants.MAX_STEPS_SIMPLE,
         'render_fps': constants.RENDER_FPS,
+        'rand_agent_pos': True,
         'env': env_entry_point,
     }
     agent = characters.Bomber

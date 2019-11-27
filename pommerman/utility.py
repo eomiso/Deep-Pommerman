@@ -89,9 +89,19 @@ def make_board(size, num_rigid=0, num_wood=0, num_agents=4, rand_agent_pos=False
         assert (num_agents % 2 == 0)
 
         if num_agents == 2:
-            board[1, 1] = constants.Item.Agent0.value
-            board[size - 2, size - 2] = constants.Item.Agent1.value
-            agents = [(1, 1), (size - 2, size - 2)]
+            if rand_agent_pos == True:
+                shuffledSpots = [(1, 1), (size - 2, 1), (1, size - 2), (size - 2, size - 2)]
+                shuffledOrder = [0,1,2,3]
+                random.shuffle(shuffledOrder)
+                shuffledSpots = [shuffledSpots[i] for i in shuffledOrder]
+
+                board[shuffledSpots[0]] = constants.Item.Agent0.value
+                board[shuffledSpots[1]] = constants.Item.Agent1.value
+                agents = [shuffledSpots[0], shuffledSpots[1]]
+            else:
+                board[1, 1] = constants.Item.Agent0.value
+                board[size - 2, size - 2] = constants.Item.Agent1.value
+                agents = [(1, 1), (size - 2, size - 2)]
         else:
             if rand_agent_pos == True:
                 shuffledAgents = [constants.Item.Agent0.value, constants.Item.Agent1.value, constants.Item.Agent2.value, constants.Item.Agent3.value]
