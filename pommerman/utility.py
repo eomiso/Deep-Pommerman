@@ -123,7 +123,9 @@ def make_board(size, num_rigid=0, num_wood=0, num_agents=4, rand_agent_pos=False
                 board[1, size - 2] = constants.Item.Agent3.value
                 agents = [(1, 1), (size - 2, 1), (1, size - 2), (size - 2, size - 2)]
 
-        for position in agents:
+        # if the position is randomized and we want to put any rigid/wood, must delete all possible 
+        # positions of agents to keep symmetry of position of wood/rigid
+        for position in [(1, 1), (size - 2, 1), (1, size - 2), (size - 2, size - 2)]:
             if position in coordinates:
                 coordinates.remove(position)
 
