@@ -7,9 +7,9 @@ from enum import Enum
 RENDER_FPS = 30
 BOARD_SIZE = 11
 FREE_BOARD_SIZE = 4 #value between [4..11]
-NUM_RIGID = 0 #orig value 36
-NUM_WOOD = 0 #36
-NUM_ITEMS = 0 #20
+NUM_RIGID = 36 #orig value 36
+NUM_WOOD = 36 #36
+NUM_ITEMS = 20 #20
 BOARD_SIZE_ONE_VS_ONE = 11 #8
 NUM_RIGID_ONE_VS_ONE = 16
 NUM_WOOD_ONE_VS_ONE = 16
