@@ -1,5 +1,5 @@
 '''An example to show how to set up an pommerman game programmatically'''
-import os
+import os, shutil
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import pommerman
@@ -10,13 +10,20 @@ from pommerman.agents.cnn_model import CNNBatchNorm
 import torch
 
 def setup_episode_dirs(base_dir, episode_num):
-    '''Creates directories to record episode playouts'''
+    '''
+    Creates directories to record episode playouts.
+    Clears any information that was previously there.
+    '''
     png_dir= base_dir + '/png_logs/' + str(episode_num)
     json_dir = base_dir + '/json_logs/' + str(episode_num)
     if not os.path.exists(png_dir):
         os.makedirs(png_dir)
+    else:
+        shutil.rmtree(png_dir)
     if not os.path.exists(json_dir):
         os.makedirs(json_dir)
+    else:
+        shutil.rmtree(json_dir)
     print('record png dir:', png_dir)
     print('record json dir:', json_dir)
     return png_dir, json_dir
@@ -37,7 +44,7 @@ def main():
     n_cnn_layers=4
     nn_model=CNNBatchNorm(input_feature_shape=shape, n_actions=n_actions, n_filters_per_layer=n_filters_per_layer, n_cnn_layers=n_cnn_layers)
     nn_model2=CNNBatchNorm(input_feature_shape=shape, n_actions=n_actions, n_filters_per_layer=n_filters_per_layer, n_cnn_layers=n_cnn_layers)
-    nn_path='./trained_agent/skynet_variations/ppo_CNN4_64_99.pt'
+    nn_path='./trained_agent/skynet_variations/ppo_CNN4_64_6407.pt'
     nn_path2='./trained_agent/skynet_variations/ppo_CNN4_64_955.pt'
     nn_model.load_state_dict(torch.load(nn_path, map_location=lambda storage, loc: storage))
     nn_model2.load_state_dict(torch.load(nn_path2, map_location=lambda storage, loc: storage))
@@ -54,31 +61,35 @@ def main():
     #env_id="PommeFFACompetition-v0"
     #env_id="PommeTeamCompetition-v0"
     #env_id="SimpleTeam-v0"
-    env_id="PommeTeamFast-v0"
+    env_id="Lesson2d-v0"
     #env_id="AdvancedLesson-v0"
     agent_list = [
-        agents.RandomAgent(),
-        agents.SlowRandomAgentNoBomb(),
-        agents.RandomAgent(),
-        agents.SlowRandomAgentNoBomb(),
+        agents.StaticAgent(),
+        agents.StaticAgent(),
+        agents.StaticAgent(),
+        agents.StaticAgent(),
+        #agents.SlowRandomAgentNoBomb(),
+        #agents.PlayerAgent(),
+        #agents.SlowRandomAgentNoBomb(),
         #agents.PlayerAgent(),
         #agents.RandomAgent(),
     ]
-    #agent_list[idx]=nn_agent
-    #agent_list[team_id]=nn_agent2
-    agent_list[idx2]=nn_agentA
-    agent_list[team_id2]=nn_agentB
+    agent_list[idx]=nn_agent
+    agent_list[team_id]=nn_agent2
+    #agent_list[idx2]=nn_agentA
+    #agent_list[team_id2]=nn_agentB
     # Make the environment using the agent list
     env = pommerman.make(env_id, agent_list)
 
     base_dir = '.'    
     # Run the episodes just like OpenAI Gym
-    for i_episode in range(2):
+    for i_episode in range(10):
         png_dir, json_dir = setup_episode_dirs(base_dir,i_episode)
         state = env.reset()
         done = False
         while not done:
             env.render(record_pngs_dir=png_dir, record_json_dir=json_dir)
+            #env.save_json(json_dir) #use this instead of env.render to only save JSON files without doing rendering.
             actions = env.act(state)
             #a=nn_agent.act(state[idx], env.action_space, 'softmax') if nn_agent.is_alive else 0
             #actions[idx]=a
