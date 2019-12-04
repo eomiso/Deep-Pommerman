@@ -65,11 +65,11 @@ def main():
     #env_id="PommeFFACompetition-v0"
     #env_id="PommeTeamCompetition-v0"
     #env_id="SimpleTeam-v0"
-    env_id="Lesson3d-v0"
+    env_id="tournament-v0"
     #env_id="AdvancedLesson-v0"
     agent_list = [
         agents.StaticAgent(),
-        agents.StaticAgent(),
+        agents.SimpleAgent(),
         agents.StaticAgent(),
         agents.StaticAgent(),
         #agents.SlowRandomAgentNoBomb(),
@@ -78,22 +78,24 @@ def main():
         #agents.PlayerAgent(),
         #agents.RandomAgent(),
     ]
-    #agent_list[idx]=nn_agent
+    agent_list[idx]=nn_agentA
     #agent_list[team_id]=nn_agent2
     #agent_list[idx2]=nn_agentA
     #agent_list[team_id2]=nn_agentB
     # Make the environment using the agent list
     env = pommerman.make(env_id, agent_list)
 
-    base_dir = '.'    
+    base_dir = '.'
+    steps = 0
     # Run the episodes just like OpenAI Gym
-    for i_episode in range(1):
+    for i_episode in range(100):
         png_dir, json_dir = setup_episode_dirs(base_dir,i_episode)
         state = env.reset()
         done = False
         while not done:
-            env.render(record_pngs_dir=png_dir, record_json_dir=json_dir)
-            #env.save_json(json_dir) #use this instead of env.render to only save JSON files without doing rendering.
+            steps += 1
+            #env.render(record_pngs_dir=png_dir, record_json_dir=json_dir)
+            env.save_json(json_dir) #use this instead of env.render to only save JSON files without doing rendering.
             actions = env.act(state)
             #a=nn_agent.act(state[idx], env.action_space, 'softmax') if nn_agent.is_alive else 0
             #actions[idx]=a
@@ -102,7 +104,9 @@ def main():
             #if nn_agent.is_alive ==False: print('dead')
         print('Episode {} finished'.format(i_episode))
         print("Final Result: ", info)
-        pommerman.utility.join_json_state(json_dir, ['agent0name','agent1name','agent2name','agent3name'], finished_at=0, config=env_id, info=info)
+        pommerman.utility.join_json_state(json_dir, ['Skynet955','RandomAgent','StaticAgent','RandomAgent'], finished_at=0, config=env_id, info=info)
+    steps = steps / 100
+    print("Average steps:", steps)
     env.close()
 
 

@@ -32,6 +32,21 @@ def setup_episode_dirs(base_dir, episode_num):
     print('record json dir:', json_dir)
     return png_dir, json_dir
 
+def setup_json_dirs(base_dir, episode_num):
+    '''
+    Creates directories to record episode playouts.
+    Clears any information that was previously there.
+    '''
+    json_dir = base_dir + '/json_logs/' + str(episode_num)
+    if not os.path.exists(json_dir):
+        os.makedirs(json_dir)
+    else:
+        shutil.rmtree(json_dir)
+        if not os.path.exists(json_dir):
+            os.makedirs(json_dir)
+    print('record json dir:', json_dir)
+    return json_dir
+
 def main():
     '''Simple function to bootstrap a game.
        
@@ -42,6 +57,7 @@ def main():
 
     # Create a set of agents (exactly four)    
 
+    #skynet setup
     shape=(14,11,11)
     n_actions=6
     n_filters_per_layer=64

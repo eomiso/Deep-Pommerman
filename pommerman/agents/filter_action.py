@@ -66,10 +66,16 @@ def must_place_bomb_test(obs):
         #already on bomb
         return False
     if obs['teammate'].value not in obs['alive']:
-        e1,e2=enemies[0].value,enemies[1].value
-        if e1 in obs['alive'] and e2 in obs['alive']:
-            #two enemies alive, only me alive, not do this test..
-            return False
+        if len(enemies) < 2:
+            e1=enemies[0].value
+            if e1 in obs['alive']:
+                #two enemies alive, only me alive, not do this test..
+                return False
+        else:
+            e1,e2=enemies[0].value,enemies[1].value
+            if e1 in obs['alive'] and e2 in obs['alive']:
+                #two enemies alive, only me alive, not do this test..
+                return False
     for e in enemies:
         e=e.value
         if e not in obs['alive']:

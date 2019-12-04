@@ -40,6 +40,26 @@ def one_vs_one_env():
     agent = characters.Bomber
     return locals()
 
+def tournament_env():
+    """Start up a tournament OneVsOne config with the easy settings."""
+    env = envs.v0.Pomme
+    game_type = constants.GameType.Team
+    env_entry_point = 'pommerman.envs.v0:Pomme'
+    env_id = 'tournament-v0'
+    env_kwargs = {
+        'game_type': game_type,
+        'board_size': 11,
+        'num_rigid': 0,
+        'num_wood': 36,
+        'num_items': 0,
+        'max_steps': 800,
+        'render_fps': 1000,
+        'rand_agent_pos': True,
+        'env': env_entry_point,
+    }
+    agent = characters.Bomber
+    return locals()
+
 def simple_env():
     """Start up a super simple OneVsOne config."""
     env = envs.v0.Pomme
@@ -150,10 +170,10 @@ def lesson2d_env():
         'game_type': game_type,
         'board_size': 11,
         'num_rigid': 0,
-        'num_wood': constants.NUM_WOOD,
+        'num_wood': 36,
         'num_items': 0,
-        'max_steps': 300,
-        'render_fps': constants.RENDER_FPS,
+        'max_steps': 800,
+        'render_fps': 1000,
         'rand_agent_pos': True,
         'env': env_entry_point,
     }
