@@ -24,7 +24,7 @@ class MyAgent(DockerAgentRunner):
         n_cnn_layers=4
         nn_model=cnn_model.CNNBatchNorm(input_feature_shape=shape, n_actions=n_actions, n_filters_per_layer=n_filters_per_layer, n_cnn_layers=n_cnn_layers)
         #nn_path='./nips_nn_mesozoic_smart/ppo_CNN4_64_1915.pt'
-        nn_path='./skynet_smart/ppo_CNN4_64_955.pt'
+        nn_path='./skynet_variations/ppo_CNN4_64_955.pt'
         nn_model.load_state_dict(torch.load(nn_path, map_location=lambda storage, loc: storage))
         selection='softmax'
         neuro_agent = NNAgent(nn_model, action_selection=selection, is_training=False)

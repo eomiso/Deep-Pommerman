@@ -16,9 +16,10 @@ def main():
         agents.SimpleAgent(),
         agents.RandomAgent(),        
         agents.RandomAgent(),
+        agents.RandomAgent(),
         #agents.DockerAgent("multiagentlearning/hakozakijunctions", port=12345),
         #agents.DockerAgent("multiagentlearning/eisenach", port=12345),
-        agents.DockerAgent("multiagentlearning/skynet955", port=12345),
+        #agents.DockerAgent("multiagentlearning/skynet955", port=12345),
     ]
     # Make the "Free-For-All" environment using the agent list
     env = pommerman.make('PommeTeamCompetition-v1', agent_list)
@@ -28,7 +29,7 @@ def main():
         state = env.reset()
         done = False
         while not done:
-            env.render()
+            #env.render()
             actions = env.act(state)
             state, reward, done, info = env.step(actions)
         print('Episode {} finished'.format(i_episode))

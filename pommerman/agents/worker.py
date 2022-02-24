@@ -6,8 +6,8 @@ import torch
 import numpy as np
 
 import pommerman
-from pommerman.agents import nn_agent
-from pommerman.agents import simple_agent
+from pommerman.agents import NNAgent
+from pommerman.agents import SimpleAgent
 from pommerman import constants
 from pommerman.agents import input_util2
 from pommerman import utility
@@ -42,7 +42,7 @@ def train_act(agent, observation, env):
     action_mask=None
     if not agent.is_alive:
         return  a, prob, value, action_mask
-    if isinstance(agent, nn_agent.NNAgent):
+    if isinstance(agent, NNAgent):
         agent.set_train_mode(True)
         a, prob, value, action_mask=agent.act(observation, env.action_space)
     else:
@@ -181,13 +181,13 @@ def load_newest_nn(nn_model_dir, input_shape, n_actions, n_filters_per_layer, n_
 def setup_agents(nn_model, max_seq_len, opponent='static'):
     agent_list=[None]*4
     train_agent_id=random.randint(0,3)
-    agent_list[train_agent_id]=nn_agent.NNAgent(nn_model, is_training=True, max_seq_len=max_seq_len)
+    agent_list[train_agent_id]=NNAgent(nn_model, is_training=True, max_seq_len=max_seq_len)
     team_id=(train_agent_id+2)%4
     for i in range(4):
         if i == train_agent_id: 
             continue
         if i == team_id:
-            agent_list[i]=nn_agent.NNAgent(nn_model, is_training=True, max_seq_len=max_seq_len)
+            agent_list[i]=NNAgent(nn_model, is_training=True, max_seq_len=max_seq_len)
         else: 
             if opponent == 'static':
                 agent_list[i] = random_agent.StaticAgent()
@@ -202,9 +202,9 @@ def setup_agents(nn_model, max_seq_len, opponent='static'):
             elif opponent == 'smart_random':
                 agent_list[i] = random_agent.SmartRandomAgent()
             elif opponent == 'simple_agent':
-                agent_list[i]=simple_agent.SimpleAgent() 
+                agent_list[i]= SimpleAgent() 
             elif opponent == 'nn_agent':
-                agent_list[i]=nn_agent.NNAgent(nn_model, max_seq_len=max_seq_len)
+                agent_list[i]= NNAgent(nn_model, max_seq_len=max_seq_len)
             else:
                 print('unsupported opponent type!')
                 sys.exit(1)

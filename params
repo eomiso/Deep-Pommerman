@@ -3,8 +3,8 @@ start_iteration:0
 max_loop_step:100
 game_dir:output/GAMES
 nn_model_dir:output/NN_MODELS
-env_id:SimpleRandomTeam-v0
-opponent:static
+env_id:PommeTeamCompetition-v1
+opponent:random_no_bomb
 n_games_per_worker:10
 buffer_size:100
 n_epochs:1

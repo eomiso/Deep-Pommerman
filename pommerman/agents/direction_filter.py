@@ -12,7 +12,8 @@ def step_to(obs, new_position, lay_bomb=False):
     """return: a copy of new observation after stepping into new_position. 
        If lay_bomb==True, it is actually two-step change (i.e., lay bomb then go to new_position)
     """
-    assert(utility.position_is_passable(obs['board'], new_position, obs['enemies']))
+    # Not sure why this is needed. It was included in Deep-pommerman repo
+    # assert(utility.position_is_passable(obs['board'], new_position, obs['enemies']))
     new_obs=copy.deepcopy(obs)
     sz=len(obs['board'])
     old_board=obs['board']

@@ -15,7 +15,7 @@ python-cli-ui~=0.7.1
 python-rapidjson~=0.6.3
 Click==7.0
 
-torch~=0.4.1
+#torch~=0.4.1 # 일단은 1.10.2 로 깔아 보았다.
 numpy~=1.14.3
 psutil
-stable-baselines[mpi]
+#stable-baselines[mpi]
