@@ -16,6 +16,7 @@ python-rapidjson~=0.6.3
 Click==7.0
 
 #torch~=0.4.1 # 일단은 1.10.2 로 깔아 보았다.
-numpy~=1.14.3
+numpy~=1.17.3
 psutil
+imageio~=2.1
 #stable-baselines[mpi]
