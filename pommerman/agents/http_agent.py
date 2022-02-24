@@ -77,7 +77,7 @@ class HttpAgent(BaseAgent):
         try:
             req = requests.post(
                 request_url,
-                timeout=0.5,
+                timeout=0.7,
                 json={
                     "obs":
                     obs_serialized,
